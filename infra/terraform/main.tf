@@ -16,10 +16,11 @@ module "nookium" {
 
     # Cluster Settings
     cluster_name = "nookium"
-    controller_prefix = "node-c"
+    controller_prefix = "node-kc"
+    worker_prefix = "node-kw"
     domain_name = var.domain_name
     controllers_count = 1
-    workers_count = 0
+    workers_count = 1
     pod_cidr = "10.50.64.0/24"
     service_cidr = "10.50.68.0/24"
     networking = "flannel"
