@@ -1,6 +1,22 @@
 ---
 systemd:
   units:
+    - name: setup-qemu-ga.service
+      enabled: true
+      contents:  |
+        [Unit]
+        Description=Setup qemu guest agent
+        After=systemd-resolved.service
+        Wants=systemd-resolved.service
+        ConditionPathExists=!/opt/qemu-setup.stamp
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        ExecStart=/opt/qemu-ga
+        ExecStartPost=/bin/touch /opt/qemu-setup.stamp
+        ExecStartPost=/bin/systemctl --no-block reboot
+        [Install]
+        WantedBy=multi-user.target
     - name: docker.service
       enabled: true
     - name: locksmithd.service
@@ -21,6 +37,7 @@ systemd:
         Description=Wait for DNS entries
         Wants=systemd-resolved.service
         Before=kubelet.service
+        ConditionPathExists=/opt/qemu-setup.stamp
         [Service]
         Type=oneshot
         RemainAfterExit=true
@@ -109,6 +126,20 @@ storage:
       contents:
         inline:
           ${hostname}
+    - path: /opt/qemu-ga
+      filesystem: root
+      mode: 0544
+      contents:
+        inline: |
+          #!/bin/bash -ex
+          source /etc/os-release
+          URL=https://github.com/b-tuma/torcx-qemu-ga/releases/download/5.0.2-3/torcx.tgz
+          PKG="/var/lib/torcx/store/$${VERSION_ID}/qemu-ga:CoreOS_$${VERSION_ID}.torcx.tgz"
+          mkdir -p "/var/lib/torcx/store/$${VERSION_ID}"
+          wget "$${URL}" -O "$${PKG}"
+          image="{ \"name\": \"qemu-ga\", \"reference\": \"CoreOS_$${VERSION_ID}\" },"
+          jq ".value.images += [$${image::-1}]" /usr/share/torcx/profiles/vendor.json > /etc/torcx/profiles/local.json
+          echo local > /etc/torcx/next-profile
     - path: /etc/sysctl.d/max-user-watches.conf
       filesystem: root
       mode: 0644
