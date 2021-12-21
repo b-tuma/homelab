@@ -74,7 +74,7 @@ systemd:
           --cluster_dns=${cluster_dns_service_ip} \
           --cluster_domain=${cluster_domain_suffix} \
           --healthz-port=0 \
-          --hostname-override=${domain_name} \
+          --hostname-override=${hostname}.${domain_name} \
           --kubeconfig=/var/lib/kubelet/kubeconfig \
           --network-plugin=cni \
           --node-labels=node.kubernetes.io/node \
@@ -108,7 +108,7 @@ storage:
       mode: 0644
       contents:
         inline:
-          ${domain_name}
+          ${hostname}
     - path: /etc/sysctl.d/max-user-watches.conf
       filesystem: root
       mode: 0644

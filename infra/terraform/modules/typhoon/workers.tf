@@ -1,4 +1,4 @@
-# Fedora CoreOS WOrker
+# Flatcar Linux Worker
 
 # Generate Proxmox VM for workers
 resource "proxmox_vm_qemu" "workers" {
@@ -9,7 +9,7 @@ resource "proxmox_vm_qemu" "workers" {
     count = var.workers_count
 
     name = "kube-worker-${count.index + 1}"
-    desc = "Fedora CoreOS - Kubernetes Worker ${count.index + 1}"
+    desc = "Flatcar Linux - Kubernetes Worker ${count.index + 1}"
     target_node = var.proxmox_node
     clone = var.template_name
 
@@ -81,7 +81,8 @@ data "template_file" "worker-configs" {
 
   template = file("${path.module}/cl/worker.yaml")
   vars = {
-    domain_name = "${var.worker_prefix}${count.index + 1}.${var.domain_name}"
+    hostname = "${var.worker_prefix}${count.index + 1}"
+    domain_name = var.domain_name
     cluster_dns_service_ip = module.bootstrap.cluster_dns_service_ip
     cluster_domain_suffix = var.cluster_domain_suffix
     ssh_authorized_key = var.ssh_authorized_key

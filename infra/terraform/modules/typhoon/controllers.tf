@@ -81,8 +81,8 @@ data "template_file" "controller-configs" {
 
   template = file("${path.module}/cl/controller.yaml")
   vars = {
-    domain_name = "${var.controller_prefix}${count.index + 1}.${var.domain_name}"
-    etcd_name = "${var.controller_prefix}${count.index + 1}"
+    hostname = "${var.controller_prefix}${count.index + 1}"
+    domain_name = var.domain_name
     etcd_initial_cluster = join(",", data.template_file.etcds.*.rendered)
     cluster_dns_service_ip = module.bootstrap.cluster_dns_service_ip
     cluster_domain_suffix = var.cluster_domain_suffix
