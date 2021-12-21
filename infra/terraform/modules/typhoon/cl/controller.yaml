@@ -218,16 +218,10 @@ storage:
       mode: 0544
       contents:
         inline: |
-          #!/bin/bash
-          set -ex
+          #!/bin/bash -ex
           source /etc/os-release
           URL=https://github.com/b-tuma/torcx-qemu-ga/releases/download/5.0.2-3/torcx.tgz
           PKG="/var/lib/torcx/store/$${VERSION_ID}/qemu-ga:CoreOS_$${VERSION_ID}.torcx.tgz"
-          BIN="/var/run/torcx/bin/qemu-ga"
-          if [ -f "$${BIN}" ]; then
-            echo "Already installed qemu-ga."
-            exit 0
-          fi
           mkdir -p "/var/lib/torcx/store/$${VERSION_ID}"
           wget "$${URL}" -O "$${PKG}"
           image="{ \"name\": \"qemu-ga\", \"reference\": \"CoreOS_$${VERSION_ID}\" },"
