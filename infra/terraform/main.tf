@@ -25,6 +25,7 @@ module "nookium" {
     networking = "flannel"
 
     controller_snippets = [file("./snippets/controller.yaml")]
+    worker_snippets = [file("./snippets/worker.yaml")]
 }
 
 resource "local_file" "kubeconfig-nookium" {
