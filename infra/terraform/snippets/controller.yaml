@@ -1,4 +1,16 @@
 ---
+systemd:
+  units:
+    - name: fstrim.timer
+      enabled: true
+      
+    - name: fstrim.service
+      dropins:
+        - name: override.conf
+          contents: |
+            [Service]
+            ExecStart=
+            ExecStart=/sbin/fstrim -av
 storage:
   files:
     - path: /etc/motd
