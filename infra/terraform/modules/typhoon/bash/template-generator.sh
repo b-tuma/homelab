@@ -35,7 +35,7 @@ echo "Destroy current VM ${vmid}..."
 qm destroy ${vmid} --destroy-unreferenced-disks 1 --purge 1 2> /dev/null
 
 # Create VM
-echo "Create Flarcar Linux VM ${vmid}"
+echo "Create Flatcar Linux VM ${vmid}"
 qm create ${vmid} --name ${template_name} --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
 qm importdisk ${vmid} ${images_dir}/flatcar-linux-${stream}-${version}.qcow2 ${vmstorage} $${vmdisk_format}
 qm set ${vmid} --scsihw virtio-scsi-pci --scsi0 ${vmstorage}:$${vmdisk_name}${vmdisk_options}
