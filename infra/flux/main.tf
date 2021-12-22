@@ -1,48 +1,3 @@
-# Proxmox
-module "nookium" {
-    source = "./modules/typhoon"
-    # Proxmox Settings
-    proxmox_host = var.proxmox_host
-    proxmox_node = var.proxmox_node
-    proxmox_user = var.proxmox_user
-    proxmox_password = var.proxmox_password
-
-    # VM Settings
-    ssh_authorized_key = var.ssh_public_key
-    template_name = var.template_name
-    storage_location = "local-lvm"
-    root_size = 10
-    cpu_cores = 2
-    memory = 4096
-
-    # Cluster Settings
-    cluster_name = "nookium"
-    controller_prefix = "node-c"
-    worker_prefix = "node-w"
-    domain_name = var.domain_name
-    controllers_count = 1
-    workers_count = 0
-    pod_cidr = "10.50.64.0/24"
-    service_cidr = "10.50.68.0/24"
-    networking = "calico"
-
-    controller_snippets = [file("./snippets/controller.yaml")]
-    worker_snippets = [file("./snippets/worker.yaml")]
-}
-
-resource "local_file" "kubeconfig-nookium" {
-  depends_on = [module.nookium]
-  content  = module.nookium.kubeconfig-admin
-  file_permission = 0600
-  filename = var.kubeconfig_path
-}
-
-resource "time_sleep" "wait_2_minutes" {
-  depends_on = [local_file.kubeconfig-nookium]
-
-  create_duration = "120s"
-}
-
 # SSH
 locals {
   known_hosts = "github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg="
@@ -61,8 +16,6 @@ data "flux_sync" "main" {
 
 # Kubernetes
 resource "kubernetes_namespace" "flux_system" {
-  depends_on = [time_sleep.wait_2_minutes]
-  provider = kubernetes.k8s
   metadata {
     name = "flux-system"
   }

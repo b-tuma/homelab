@@ -17,7 +17,7 @@ variable "template_name" {
     default = "flatcar-template"
 }
 
-variable "kubeconfig_file" {
+variable "kubeconfig_path" {
   type    = string
   default = "/home/user/.kube/config" 
 }
