@@ -8,13 +8,14 @@ resource "null_resource" "proxmox_template" {
   }
 
   provisioner "file" {
-    content = data.template_file.template_script.*.rendered
+    content = data.template_file.template_script.rendered
     destination = "/tmp/template-generator.sh"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo /tmp/template-generator.sh",
+      "chmod +x /tmp/template-generator.sh",
+      "/tmp/template-generator.sh",
     ]
   }
 }
