@@ -7,16 +7,6 @@ variable "domain_name" {
     type    = string
 }
 
-variable "alpine_template" {
-    type = string
-    default = "alpine-ssh.tar.gz"
-}
-
-variable "template_name" {
-    type = string
-    default = "flatcar-template"
-}
-
 variable "kubeconfig_path" {
   type    = string
   default = "/home/user/.kube/config" 

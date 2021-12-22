@@ -4,6 +4,7 @@
 resource "proxmox_vm_qemu" "controllers" {
     depends_on = [
       null_resource.proxmox_controller_configs,
+      null_resource.proxmox_template,
     ]
     
     count = var.controllers_count

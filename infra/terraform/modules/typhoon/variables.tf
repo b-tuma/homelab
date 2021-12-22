@@ -28,8 +28,21 @@ variable "ssh_authorized_key" {
 }
 
 variable "template_name" {
-  type    = string
-  default = "linux-template"
+  description = "Proxmox VM template name"
+  type = string
+  default = "flatcar-template"
+}
+
+variable "flatcar_version" {
+  description = "Flatcar Linux version"
+  type = string
+  default = "3033.2.0"
+}
+
+variable "flatcar_stream" {
+  description = "Flatcar Linux stream"
+  type = string
+  default = "stable"
 }
 
 variable "cluster_domain_suffix" {

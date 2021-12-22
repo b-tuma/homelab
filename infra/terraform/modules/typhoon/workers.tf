@@ -4,6 +4,7 @@
 resource "proxmox_vm_qemu" "workers" {
     depends_on = [
       null_resource.proxmox_worker_configs,
+      null_resource.proxmox_template,
     ]
     
     count = var.workers_count
