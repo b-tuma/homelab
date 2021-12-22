@@ -93,6 +93,7 @@ resource "github_repository_deploy_key" "main" {
 }
 
 resource "github_repository_file" "install" {
+  overwrite_on_create = true
   repository = data.github_repository.main.name
   file       = data.flux_install.main.path
   content    = data.flux_install.main.content
@@ -100,6 +101,7 @@ resource "github_repository_file" "install" {
 }
 
 resource "github_repository_file" "sync" {
+  overwrite_on_create = true
   repository = data.github_repository.main.name
   file       = data.flux_sync.main.path
   content    = data.flux_sync.main.content
@@ -107,6 +109,7 @@ resource "github_repository_file" "sync" {
 }
 
 resource "github_repository_file" "kustomize" {
+  overwrite_on_create = true
   repository = data.github_repository.main.name
   file       = data.flux_sync.main.kustomize_path
   content    = data.flux_sync.main.kustomize_content
