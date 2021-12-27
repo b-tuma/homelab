@@ -35,13 +35,10 @@ resource "proxmox_vm_qemu" "controllers" {
         iothread = 1
     }
 
-    dynamic "network" {
-        for_each = var.network
-        content {
-            model = network.value["model"]
-            bridge = network.value["bridge"]
-            tag = network.value["tag"]
-        }
+    network {
+      model = "virtio"
+      macaddr = "fa:ca:de:${var.macid}:c0:${format("%02s", count.index + 1)}"
+      bridge = "vmbr0"
     }
 
     timeouts {

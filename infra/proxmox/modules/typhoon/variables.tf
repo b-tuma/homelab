@@ -76,6 +76,12 @@ variable "network" {
     }]
 }
 
+variable "macid" {
+  type = string
+  description = "Two digit hexadecimal number unique to this cluster"
+  default = "00"
+}
+
 variable "root_size" {
   type = number
   default = 10
@@ -190,4 +196,10 @@ variable "enable_aggregation" {
   description = "Enable the Kubernetes Aggregation Layer (defaults to false)"
   type        = bool
   default     = false
+}
+
+variable "coredns" {
+  description = "Enable or disable CoreDNS"
+  type        = bool
+  default     = true
 }

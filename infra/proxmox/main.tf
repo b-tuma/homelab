@@ -16,14 +16,17 @@ module "nookium" {
 
     # Cluster Settings
     cluster_name = "nookium"
-    controller_prefix = "node-c"
-    worker_prefix = "node-w"
+    controller_prefix = "k8s-c"
+    worker_prefix = "k8s-w"
     domain_name = var.domain_name
     controllers_count = 1
     workers_count = 0
     pod_cidr = "10.50.64.0/24"
     service_cidr = "10.50.68.0/24"
     networking = "calico"
+    macid = "0A"
+    api_server = "k8s.home.mansures.net"
+    coredns = false
 
     controller_snippets = [file("./snippets/controller.yaml")]
     worker_snippets = [file("./snippets/worker.yaml")]
