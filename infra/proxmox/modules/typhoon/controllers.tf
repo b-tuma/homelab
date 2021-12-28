@@ -39,6 +39,7 @@ resource "proxmox_vm_qemu" "controllers" {
       model = "virtio"
       macaddr = "fa:ca:de:${var.macid}:c0:${format("%02s", count.index + 1)}"
       bridge = "vmbr0"
+      tag = var.network_tag
     }
 
     timeouts {

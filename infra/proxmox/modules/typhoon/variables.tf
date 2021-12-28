@@ -76,6 +76,12 @@ variable "network" {
     }]
 }
 
+variable "network_tag" {
+  type = number
+  description = "Network VLAN tag"
+  default = -1
+}
+
 variable "macid" {
   type = string
   description = "Two digit hexadecimal number unique to this cluster"
