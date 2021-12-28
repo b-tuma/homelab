@@ -13,6 +13,7 @@ module "nookium" {
     root_size = 10
     cpu_cores = 2
     memory = 4096
+    network_tag = 532
 
     # Cluster Settings
     cluster_name = "nookium"
