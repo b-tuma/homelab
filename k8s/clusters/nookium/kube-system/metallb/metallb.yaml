@@ -28,14 +28,14 @@ spec:
         addresses:
         -  10.50.40.10-10.50.43.250
         avoid-buggy-ips: true
-    prometheusRule:
-      enabled: true
-    prometheus:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-      prometheusRule:
-        enabled: true
+    # prometheusRule:
+    #   enabled: true
+    # prometheus:
+    #   enabled: true
+    #   serviceMonitor:
+    #     enabled: true
+    #   prometheusRule:
+    #     enabled: true
     controller:
       # image:
       #   repository: quay.io/metallb/controller
