@@ -23,11 +23,17 @@ spec:
         peer-asn: 64512
         my-asn: 64513
       address-pools:
-      - name: bgp
+      - name: pool
         protocol: bgp
         addresses:
-        -  10.50.40.10-10.50.43.250
+        -  10.50.40.11-10.50.43.250
         avoid-buggy-ips: true
+      - name: dns
+        protocol: bgp
+        addresses:
+        - 10.50.40.10/32
+        avoid-buggy-ips: true
+        auto-assign: false
     # prometheusRule:
     #   enabled: true
     # prometheus:
