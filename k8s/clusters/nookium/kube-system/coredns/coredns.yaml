@@ -26,7 +26,7 @@ spec:
         enabled: true
     service:
       externalTrafficPolicy: Local
-      loadBalancerIP: 10.50.40.99
+      loadBalancerIP: 10.50.40.10
       annotations:
         metallb.universe.tf/allow-shared-ip: coredns
     affinity:

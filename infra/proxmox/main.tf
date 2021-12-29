@@ -23,7 +23,7 @@ module "nookium" {
     controllers_count = 1
     workers_count = 0
     pod_cidr = "10.50.64.0/24"
-    service_cidr = "10.50.68.0/24"
+    service_cidr = "10.50.40.0/22"
     networking = "calico"
     macid = "0A"
     api_server = "k8s.home.mansures.net"
