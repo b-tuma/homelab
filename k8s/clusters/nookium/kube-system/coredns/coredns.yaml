@@ -26,7 +26,7 @@ spec:
         enabled: true
     service:
       externalTrafficPolicy: Local
-      loadBalancerIP: 10.50.32.99
+      loadBalancerIP: 10.50.40.99
       annotations:
         metallb.universe.tf/allow-shared-ip: coredns
     affinity:
@@ -79,4 +79,4 @@ spec:
        domain: k8s.home.mansures.net
        contents: |
          k8s.home.mansures.net.		1472	IN	SOA	ns2.no-ip.com. hostmaster.no-ip.com. 2020071491 10800 1800 604800 1800
-         *.k8s.home.mansures.net. IN A   10.50.32.150
+         *.k8s.home.mansures.net. IN A   10.50.40.150
