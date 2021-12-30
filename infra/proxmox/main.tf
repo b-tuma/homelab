@@ -22,12 +22,11 @@ module "nookium" {
     domain_name = var.domain_name
     controllers_count = 1
     workers_count = 0
-    pod_cidr = "10.50.64.0/24"
-    service_cidr = "10.50.40.0/22"
+    pod_cidr = "172.20.0.0/22"
+    service_cidr = "172.20.8.0/22"
     networking = "calico"
     macid = "0A"
     api_server = "k8s.home.mansures.net"
-    coredns = false
 
     controller_snippets = [file("./snippets/controller.yaml")]
     worker_snippets = [file("./snippets/worker.yaml")]

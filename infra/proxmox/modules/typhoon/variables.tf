@@ -203,9 +203,3 @@ variable "enable_aggregation" {
   type        = bool
   default     = false
 }
-
-variable "coredns" {
-  description = "Enable or disable CoreDNS"
-  type        = bool
-  default     = true
-}
