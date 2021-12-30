@@ -25,7 +25,7 @@ metadata:
     metallb.universe.tf/allow-shared-ip: "DNS"
 spec:
   type: LoadBalancer
-  loadBalancerIP: 10.40.50.10
+  loadBalancerIP: 10.50.40.10
   ports:
   - port: 53
     targetPort: 53
