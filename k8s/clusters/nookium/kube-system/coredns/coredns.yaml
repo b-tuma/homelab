@@ -14,7 +14,7 @@ spec:
     targetPort: 53
     protocol: UDP
   selector:
-    k8s-app: coredns
+    k8s-app: kube-dns
 ---
 apiVersion: v1
 kind: Service
@@ -31,13 +31,13 @@ spec:
     targetPort: 53
     protocol: TCP
   selector:
-    k8s-app: coredns
+    k8s-app: kube-dns
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-    k8s-app: coredns
+    k8s-app: kube-dns
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
   name: coredns
