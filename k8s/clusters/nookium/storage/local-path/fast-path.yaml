@@ -1,0 +1,36 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: fast-path
+  namespace: storage
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: ./deploy/chart
+      sourceRef:
+        kind: GitRepository
+        name: local-path-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    storageClass:
+      name: fast-disks
+    nodePathMap:
+    - node: DEFAULT_PATH_FOR_NON_LISTED_NODES
+      paths:
+      - /mnt/fast
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+    tolerations:
+    - key: kubernetes.io/hostname
+      value: k3s-c1
+      effect: NoSchedule
+    configmap:
+      name: fast-path-config
