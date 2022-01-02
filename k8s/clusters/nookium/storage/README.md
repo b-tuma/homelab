@@ -1,0 +1,2 @@
+Since this "cluster" have a single node so far, I'll be using a local persistent volume instead of Rook-Ceph or Longhorn.
+It's not the best option, but there isn't much to gain going with more advanced approaches.
