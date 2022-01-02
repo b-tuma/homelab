@@ -57,7 +57,7 @@ data:
             pods insecure
             fallthrough in-addr.arpa ip6.arpa
         }
-        k8s_external k8s.home.mansures.net
+        k8s_external k3s.home.mansures.net
         prometheus :9153
         forward . /etc/resolv.conf
         cache 30
