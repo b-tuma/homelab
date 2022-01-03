@@ -9,10 +9,10 @@ module "nookium" {
 
     # VM Settings
     ssh_authorized_key = var.ssh_public_key
-    storage_location = "local-lvm"
+    storage_location = "local"
     root_size = 10
-    cpu_cores = 2
-    memory = 4096
+    cpu_cores = 4
+    memory = 12288
     network_tag = 532
 
     # Cluster Settings

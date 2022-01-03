@@ -28,8 +28,8 @@ data "template_file" "template_script" {
     stream = var.flatcar_stream
     template_name=var.template_name
     vmid = "8000"
-    vmstorage = "local-lvm"
+    vmstorage = "local"
     vmdisk_options = ",discard=on"
-    images_dir = "/var/lib/vz/images"
+    images_dir = "/var/lib/vz/template/qemu"
   }
 }

@@ -19,7 +19,7 @@ resource "proxmox_vm_qemu" "controllers" {
 
     # The args parameter will not work without some edits to Proxmox code.
     # See more in proxmox-args-workaround.md
-    args = "-fw_cfg name=opt/com.coreos/config,file=/tmp/controller_ignition_${count.index + 1}.ign"
+    args = "-fw_cfg name=opt/com.coreos/config,file=/opt/controller_ignition_${count.index + 1}.ign"
     agent = 1
     cores = var.cpu_cores
     cpu = "host"
@@ -61,7 +61,7 @@ resource "null_resource" "proxmox_controller_configs" {
 
   provisioner "file" {
     content = data.ct_config.controller-ignitions.*.rendered[count.index]
-    destination = "/tmp/controller_ignition_${count.index + 1}.ign"
+    destination = "/opt/controller_ignition_${count.index + 1}.ign"
   }
 }
 
