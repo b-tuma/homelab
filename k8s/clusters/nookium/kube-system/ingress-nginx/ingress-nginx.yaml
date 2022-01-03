@@ -40,8 +40,8 @@ spec:
       tolerations:
       - key: "arm"
         operator: "Exists"
-      # extraArgs:
-      #   default-ssl-certificate: "cert-manager/acme-crt-secret"
+      extraArgs:
+        default-ssl-certificate: "cert-manager/acme-crt-secret"
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
