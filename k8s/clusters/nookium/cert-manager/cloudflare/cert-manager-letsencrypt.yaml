@@ -14,9 +14,9 @@ spec:
       dns01:
         cloudflare:
           email: bruno.mansur@outlook.com
-          apiKeySecretRef:
-            name: cloudflare-api-key
-            key: api-key
+          apiTokenSecretRef:
+            name: cloudflare-api-token-secret
+            key: api-token
 # ---
 # apiVersion: cert-manager.io/v1
 # kind: ClusterIssuer
