@@ -4,7 +4,7 @@ metadata:
   name: letsencrypt-test
 spec:
   acme:
-    email: bruno.tuma@outlook.com
+    email: bruno.mansur@outlook.com
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-test
@@ -13,7 +13,7 @@ spec:
     - selector: {}
       dns01:
         cloudflare:
-          email: bruno.tuma@outlook.com
+          email: bruno.mansur@outlook.com
           apiKeySecretRef:
             name: cloudflare-api-key
             key: api-key
@@ -24,7 +24,7 @@ metadata:
   name: letsencrypt-prod
 spec:
   acme:
-    email: bruno.tuma@outlook.com
+    email: bruno.mansur@outlook.com
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-prod
@@ -33,7 +33,7 @@ spec:
     - selector: {}
       dns01:
         cloudflare:
-          email: bruno.tuma@outlook.com
+          email: bruno.mansur@outlook.com
           apiKeySecretRef:
             name: cloudflare-api-key
             key: api-key
