@@ -21,7 +21,6 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    installCRDs: true
     webhook:
       enabled: true
       tolerations:
