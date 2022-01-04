@@ -1,0 +1,74 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: qbittorrent
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: qbittorrent
+      version: 13.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+      bittorrent:
+        enabled: true
+        type: LoadBalancer
+        loadBalancerIP: 10.50.40.20
+        ports:
+          bittorrent:
+            enabled: true
+            port: 44344
+            protocol: tcp
+            targetPort: 44344
+        externalTrafficPolicy: Local
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          nginx.ingress.kubernetes.io/auth-url: "https://auth.web.mansures.net/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.web.mansures.net/oauth2/start
+        hosts:
+        - host: "torrent.web.mansures.net"
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - "torrent.web.mansures.net"
+    persistence:
+      config:
+        enabled: true
+        size: 256Mi
+        storageClass: fast-disks
+        accessMode: ReadWriteOnce
+        retain: true
+      media:
+        enabled: false
+        mountPath: "/media"
+      downloads:
+        enabled: true
+        existingClaim: "nas-downloads-pvc"
+        mountPath: "/downloads"
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    resources:
+      requests:
+        memory: 250Mi
+        cpu: 25m
+      limits:
+        memory: 1500Mi
