@@ -30,7 +30,7 @@ spec:
           bittorrent:
             enabled: true
             port: 44344
-            protocol: tcp
+            protocol: TCP
             targetPort: 44344
         externalTrafficPolicy: Local
     ingress:
