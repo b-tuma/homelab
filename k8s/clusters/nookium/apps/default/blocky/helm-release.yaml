@@ -90,7 +90,7 @@ spec:
         whiteLists:
           ads:
           - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
-          - https://raw.githubusercontent.com/b-tuma/homelab/main/k8s/clusters/nookium/default/blocky/whitelist.txt
+          - https://raw.githubusercontent.com/b-tuma/homelab/main/k8s/clusters/nookium/apps/default/blocky/whitelist.txt
         clientGroupsBlock:
           default:
             - ads
