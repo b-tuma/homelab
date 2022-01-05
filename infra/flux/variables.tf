@@ -38,5 +38,5 @@ variable "branch" {
 variable "target_path" {
     type        = string
     description = "Sync target path"
-    default     = "./k8s/clusters/nookium"
+    default     = "./k8s/clusters/nookium/base"
 }
