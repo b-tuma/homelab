@@ -62,10 +62,10 @@ spec:
         enabled: true
         existingClaim: "nas-downloads-pvc"
         mountPath: "/downloads"
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+    # podSecurityContext:
+    #   runAsUser: 1000
+    #   runAsGroup: 1000
+    #   fsGroup: 1000
     resources:
       requests:
         memory: 250Mi
