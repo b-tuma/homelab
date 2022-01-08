@@ -4,4 +4,4 @@ kind: Namespace
 metadata:
   name: media
   labels:
-    routed-gateway: "true"
+    vpn-routed-gateway: "true"
