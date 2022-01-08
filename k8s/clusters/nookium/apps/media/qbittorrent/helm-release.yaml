@@ -22,6 +22,7 @@ spec:
       tag: v4.3.9
     podAnnotations:
       setGateway: "true"
+    hostname: qbittorrent
     service:
       main:
         ports:
@@ -59,7 +60,7 @@ spec:
         size: 256Mi
         storageClass: fast-disks
         accessMode: ReadWriteOnce
-        retain: true
+        retain: false
       media:
         enabled: false
         mountPath: "/media"
