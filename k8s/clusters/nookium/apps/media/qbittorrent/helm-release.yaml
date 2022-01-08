@@ -68,7 +68,8 @@ spec:
         existingClaim: "nas-downloads-pvc"
         mountPath: "/downloads"
     podSecurityContext:
-      supplementalGroups: 100
+      supplementalGroups:
+      - 100
     resources:
       requests:
         memory: 250Mi
