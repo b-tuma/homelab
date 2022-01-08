@@ -17,6 +17,11 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    image:
+      repository: ghcr.io/k8s-at-home/qbittorrent
+      tag: v4.3.9
+    podAnnotations:
+      setGateway: "true"
     service:
       main:
         ports:
@@ -63,9 +68,7 @@ spec:
         existingClaim: "nas-downloads-pvc"
         mountPath: "/downloads"
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-    #  fsGroup: 1000
+      supplementalGroups: 100
     resources:
       requests:
         memory: 250Mi
