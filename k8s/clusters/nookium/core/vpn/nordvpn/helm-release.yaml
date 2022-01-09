@@ -57,6 +57,9 @@ spec:
             add:
             - NET_ADMIN
             - SYS_MODULE
+          sysctls:
+          - name: net.ipv6.conf.all.disable_ipv6
+            value: "1"
   valuesFrom:
   - kind: Secret
     name: "nordvpn-secret"
