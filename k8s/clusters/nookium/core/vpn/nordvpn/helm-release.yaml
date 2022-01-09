@@ -57,19 +57,7 @@ spec:
             add:
             - NET_ADMIN
             - SYS_MODULE
-        env:
-        - name: USER
-          valueFrom:
-            secretKeyRef:
-              name: nordvpn-secret
-              key: username
-        - name: PASS
-          valueFrom:
-            secretKeyRef:
-              name: nordvpn-secret
-              key: password
-        - name: TECHNOLOGY
-          value: NordLynx
-        - name: NETWORK
-          value: "172.20.0.0/22 172.20.8.0/22 10.50.0.0/16"
-          
+  valuesFrom:
+  - kind: Secret
+    name: "nordvpn-secret"
+    optional: false
