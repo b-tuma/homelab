@@ -61,6 +61,8 @@ spec:
             add:
             - NET_ADMIN
             - SYS_MODULE
+        networkPolicy:
+          enabled: false
   valuesFrom:
   - kind: Secret
     name: "nordvpn-secret"
