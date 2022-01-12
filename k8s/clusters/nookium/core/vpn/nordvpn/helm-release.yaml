@@ -29,8 +29,8 @@ spec:
         port: 44344
     settings:
       # Route internal K8s and local home traffic in to the defaullt K8S gateway
-      NOT_ROUTED_TO_GATEWAY_CIDRS: "172.20.0.0/16 10.50.0.0/16"
-      VPN_LOCAL_CIDRS: "172.20.0.0/16 10.50.0.0/16"
+      NOT_ROUTED_TO_GATEWAY_CIDRS: "172.20.0.0/20 10.50.0.0/16"
+      VPN_LOCAL_CIDRS: "172.20.0.0/20 10.50.0.0/16"
       # Use a different VXLAN network segment that does not conflict with the above
       VXLAN_IP_NETWORK: "172.20.16"
     webhook:
