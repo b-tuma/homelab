@@ -32,12 +32,11 @@ spec:
       NOT_ROUTED_TO_GATEWAY_CIDRS: "172.20.0.0/20 10.50.0.0/16"
       VPN_LOCAL_CIDRS: "172.20.0.0/20 10.50.0.0/16"
       # Use a different VXLAN network segment that does not conflict with the above
-      VXLAN_IP_NETWORK: "172.20.16"
+      VXLAN_IP_NETWORK: "172.16.0"
     webhook:
       image:
         repository: ghcr.io/k8s-at-home/gateway-admision-controller
         tag: v3.4.0
-
       gatewayDefault: false
       gatewayLabel: setGateway
       gatewayAnnotation: setGateway
@@ -46,6 +45,8 @@ spec:
     podSecurityContext:
       sysctls:
       - name: net.ipv6.conf.all.disable_ipv6
+        value: "1"
+      - name: net.ipv4.ip_forward
         value: "1"
     addons:
       vpn:
@@ -56,6 +57,15 @@ spec:
             repository: bubuntux/nordvpn
             tag: v3.12.2
             pullPolicy: IfNotPresent
+        env:
+          TECHNOLOGY: "NordLynx"
+          NETWORK: "172.20.0.0/20 10.50.0.0/16"
+          DNS: "172.20.8.10"
+          POST_CONNECT: |
+            /usr/sbin/iptables -A FORWARD -i vxlan0 -o nordlynx -j ACCEPT &&
+            /usr/sbin/iptables -A FORWARD -i nordlynx -o vxlan0 -j ACCEPT &&
+            /usr/sbin/iptables -A INPUT -i vxlan0 -j ACCEPT &&
+            /usr/sbin/iptables -A OUTPUT -o vxlan0 -j ACCEPT
         securityContext:
           capabilities:
             add:
