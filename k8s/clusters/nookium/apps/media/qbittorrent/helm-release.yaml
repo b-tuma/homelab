@@ -57,10 +57,7 @@ spec:
     persistence:
       config:
         enabled: true
-        size: 256Mi
-        storageClass: fast-disks
-        accessMode: ReadWriteOnce
-        retain: false
+        existingClaim: qbittorrent-config-v1
       media:
         enabled: false
         mountPath: "/media"
