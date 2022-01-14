@@ -52,7 +52,7 @@ spec:
         existingClaim: nzbget-config-v1
       media:
         enabled: true
-        existingClaim: staging-area-pvc
+        existingClaim: nas-staging-pvc
         mountPath: "/media"
     podSecurityContext:
       supplementalGroups:
