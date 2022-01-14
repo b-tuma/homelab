@@ -4,7 +4,7 @@ metadata:
   name: nas-downloads-pv
   namespace: media
 spec:
-  storageClassName: downloads
+  storageClassName: nfs-downloads
   capacity:
     storage: 1Mi
   accessModes:
@@ -29,7 +29,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: downloads
+  storageClassName: nfs-downloads
   resources:
     requests:
       storage: 1Mi
