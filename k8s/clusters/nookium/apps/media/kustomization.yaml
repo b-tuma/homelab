@@ -4,3 +4,4 @@ resources:
   - pvc
   - qbittorrent
   - nzbget
+  - sonarr
