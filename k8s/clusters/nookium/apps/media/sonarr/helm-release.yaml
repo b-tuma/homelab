@@ -52,7 +52,6 @@ spec:
     podSecurityContext:
       runAsUser: 2001
       runAsGroup: 2000
-      fsGroup: 2001
     resources:
       requests:
         memory: 350Mi
