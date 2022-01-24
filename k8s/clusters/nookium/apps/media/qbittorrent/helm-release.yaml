@@ -59,7 +59,8 @@ spec:
         enabled: true
         existingClaim: qbittorrent-config-v1
       media:
-        enabled: false
+        enabled: true
+        existingClaim: nas-staging-pvc
         mountPath: "/media"
       downloads:
         enabled: true
