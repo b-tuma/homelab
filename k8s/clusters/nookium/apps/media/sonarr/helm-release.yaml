@@ -49,9 +49,6 @@ spec:
         enabled: true
         existingClaim: nas-shows-pvc
         mountPath: "/media"
-    podSecurityContext:
-      runAsUser: 2001
-      runAsGroup: 2000
     resources:
       requests:
         memory: 350Mi
