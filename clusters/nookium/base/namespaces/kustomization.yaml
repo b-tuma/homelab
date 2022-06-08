@@ -6,3 +6,4 @@ resources:
   - media.yaml
   - vpn-gateway.yaml
   - monitoring.yaml
+  - tigera-operator.yaml
