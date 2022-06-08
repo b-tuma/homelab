@@ -26,8 +26,6 @@ spec:
   values:
     installation:
       enabled: true
-      registry: quay.io
-      imagePath: calico
       calicoNetwork:
         bgp: Enabled
         hostPorts: Enabled
