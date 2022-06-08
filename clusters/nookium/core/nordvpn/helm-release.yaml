@@ -58,7 +58,7 @@ spec:
         openvpn:
           image:
             repository: bubuntux/nordvpn
-            tag: v3.12.2
+            tag: v3.12.3
             pullPolicy: IfNotPresent
         env:
           TECHNOLOGY: "NordLynx"
