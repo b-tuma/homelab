@@ -1,0 +1,61 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nzbget
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: nzbget
+      version: 12.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    podAnnotations:
+      setGateway: "true"
+    hostname: nzbget
+    env:
+      TZ: "${TIMEZONE}"
+    service:
+      main:
+        type: LoadBalancer
+        loadBalancerIP: 10.50.40.21
+        ports:
+          http:
+            port: 6789
+        externalTrafficPolicy: Local
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        hosts:
+        - host: "nzbget.web.${SECRET_PUBLIC_DOMAIN}"
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - "nzbget.web.${SECRET_PUBLIC_DOMAIN}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: nzbget-config-v1
+      media:
+        enabled: true
+        existingClaim: nas-staging-pvc
+        mountPath: "/media"
+    podSecurityContext:
+      supplementalGroups:
+      - 100
+    resources:
+      requests:
+        memory: 300Mi
+        cpu: 25m
+      limits:
+        memory: 2000Mi

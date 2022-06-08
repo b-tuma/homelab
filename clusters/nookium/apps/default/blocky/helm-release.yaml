@@ -1,0 +1,101 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: blocky
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: blocky
+      version: 10.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    env:
+      TZ: "${TIMEZONE}"
+    controller:
+      replicas: 1
+    service:
+      dns-tcp:
+        enabled: true
+        type: LoadBalancer
+        loadBalancerIP: 10.50.40.100
+        ports:
+          dns-tcp:
+            enabled: true
+            port: 53
+            protocol: TCP
+            targetPort: 53
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: blocky
+      dns-udp:
+        enabled: true
+        type: LoadBalancer
+        loadBalancerIP: 10.50.40.100
+        ports:
+          dns-udp:
+            enabled: true
+            port: 53
+            protocol: UDP
+            targetPort: 53
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: blocky
+    metrics:
+      enabled: true
+      serviceMonitor:
+        interval: 30s
+        scrapeTimeout: 10s
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: "blocky-config"
+    tolerations:
+    - key: "arm"
+      operator: "Exists"
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+              - blocky
+          topologyKey: "kubernetes.io/hostname"
+    resources:
+      requests:
+        memory: 280Mi
+        cpu: 50m
+      limits:
+        memory: 1000Mi
+    config: |
+      upstream:
+        default:
+          - 10.50.32.1
+      clientLookup:
+        upstream: tcp+udp:10.50.32.1
+      blocking:
+        blackLists:
+          ads:
+          - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+          - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+          - http://sysctl.org/cameleon/hosts
+          - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
+        whiteLists:
+          ads:
+          - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+          - https://raw.githubusercontent.com/b-tuma/homelab/main/clusters/nookium/apps/default/blocky/whitelist.txt
+        clientGroupsBlock:
+          default:
+            - ads
+      prometheus:
+        enable: false
+        path: /metrics
+      httpPort: 4000
+      logLevel: info

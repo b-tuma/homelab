@@ -1,0 +1,73 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: qbittorrent
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: qbittorrent
+      version: 13.4.3
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    podAnnotations:
+      setGateway: "true"
+    hostname: qbittorrent
+    env:
+      TZ: "${TIMEZONE}"
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+      bittorrent:
+        enabled: true
+        type: LoadBalancer
+        loadBalancerIP: 10.50.40.20
+        ports:
+          bittorrent:
+            enabled: true
+            port: 44344
+            protocol: TCP
+            targetPort: 44344
+        externalTrafficPolicy: Local
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        hosts:
+        - host: "torrent.web.${SECRET_PUBLIC_DOMAIN}"
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - "torrent.web.${SECRET_PUBLIC_DOMAIN}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: qbittorrent-config-v1
+      media:
+        enabled: true
+        existingClaim: nas-staging-pvc
+        mountPath: "/media"
+      downloads:
+        enabled: true
+        existingClaim: "nas-downloads-pvc"
+        mountPath: "/downloads"
+    podSecurityContext:
+      supplementalGroups:
+      - 100
+    resources:
+      requests:
+        memory: 250Mi
+        cpu: 25m
+      limits:
+        memory: 1500Mi
