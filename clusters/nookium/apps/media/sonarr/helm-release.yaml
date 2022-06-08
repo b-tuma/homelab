@@ -21,19 +21,19 @@ spec:
       setGateway: "true"
     hostname: sonarr
     env:
-      TZ: "${TIMEZONE}"
+      TZ: '${TIMEZONE}'
     ingress:
       main:
         enabled: true
         ingressClassName: nginx
         hosts:
-        - host: "sonarr.web.${SECRET_PUBLIC_DOMAIN}"
+        - host: 'sonarr.web.${SECRET_PUBLIC_DOMAIN}'
           paths:
           - path: /
             pathType: Prefix
         tls:
         - hosts:
-          - "sonarr.web.${SECRET_PUBLIC_DOMAIN}"
+          - 'sonarr.web.${SECRET_PUBLIC_DOMAIN}'
     persistence:
       config:
         enabled: true
