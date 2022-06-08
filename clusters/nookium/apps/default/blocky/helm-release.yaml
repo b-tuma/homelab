@@ -18,7 +18,7 @@ spec:
       interval: 5m
   values:
     env:
-      TZ: "${TIMEZONE}"
+      TZ: '${TIMEZONE}'
     controller:
       replicas: 1
     service:
