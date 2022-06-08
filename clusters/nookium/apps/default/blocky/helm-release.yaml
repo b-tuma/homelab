@@ -95,7 +95,7 @@ spec:
           default:
             - ads
       prometheus:
-        enable: false
+        enable: true
         path: /metrics
       httpPort: 4000
       logLevel: info
