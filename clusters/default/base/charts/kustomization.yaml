@@ -8,3 +8,4 @@ resources:
   - local-path-charts.yaml
   - metallb-charts.yaml
   - stakater-charts.yaml
+  - project-calico-charts.yaml
