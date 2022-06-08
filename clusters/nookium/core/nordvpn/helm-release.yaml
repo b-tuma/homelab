@@ -62,8 +62,8 @@ spec:
             pullPolicy: IfNotPresent
         env:
           TECHNOLOGY: "NordLynx"
-          USER: ${NORDVPN_USER}
-          PASS: ${NORDVPN_PASS}
+          USER: '${NORDVPN_USER}'
+          PASS: '${NORDVPN_PASS}'
           NETWORK: "172.20.0.0/20 10.50.0.0/16"
           DNS: "172.20.8.10"
           POST_CONNECT: |

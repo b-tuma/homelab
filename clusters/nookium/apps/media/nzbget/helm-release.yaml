@@ -21,7 +21,7 @@ spec:
       setGateway: "true"
     hostname: nzbget
     env:
-      TZ: "${TIMEZONE}"
+      TZ: '${TIMEZONE}'
     service:
       main:
         type: LoadBalancer
@@ -35,13 +35,13 @@ spec:
         enabled: true
         ingressClassName: nginx
         hosts:
-        - host: "nzbget.web.${SECRET_PUBLIC_DOMAIN}"
+        - host: 'nzbget.web.${SECRET_PUBLIC_DOMAIN}'
           paths:
           - path: /
             pathType: Prefix
         tls:
         - hosts:
-          - "nzbget.web.${SECRET_PUBLIC_DOMAIN}"
+          - 'nzbget.web.${SECRET_PUBLIC_DOMAIN}'
     persistence:
       config:
         enabled: true

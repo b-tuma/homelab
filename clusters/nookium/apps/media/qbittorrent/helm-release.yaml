@@ -21,7 +21,7 @@ spec:
       setGateway: "true"
     hostname: qbittorrent
     env:
-      TZ: "${TIMEZONE}"
+      TZ: '${TIMEZONE}'
     service:
       main:
         ports:
@@ -43,13 +43,13 @@ spec:
         enabled: true
         ingressClassName: nginx
         hosts:
-        - host: "torrent.web.${SECRET_PUBLIC_DOMAIN}"
+        - host: 'torrent.web.${SECRET_PUBLIC_DOMAIN}'
           paths:
           - path: /
             pathType: Prefix
         tls:
         - hosts:
-          - "torrent.web.${SECRET_PUBLIC_DOMAIN}"
+          - 'torrent.web.${SECRET_PUBLIC_DOMAIN}'
     persistence:
       config:
         enabled: true
