@@ -42,3 +42,4 @@ spec:
         nodeAddressAutodetectionV4:
           firstFound: true
       nodeMetricsPort: 9091
+      typhaMetricsPort: 9093
