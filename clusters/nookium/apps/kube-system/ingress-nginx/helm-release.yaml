@@ -30,13 +30,13 @@ spec:
         externalTrafficPolicy: Local
       ingressClassResource:
         default: true
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-          namespace: kube-system
-          namespaceSelector:
-            any: true
+      # metrics:
+      #   enabled: true
+      #   serviceMonitor:
+      #     enabled: true
+      #     namespace: kube-system
+      #     namespaceSelector:
+      #       any: true
       tolerations:
       - key: "arm"
         operator: "Exists"

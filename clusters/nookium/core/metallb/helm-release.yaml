@@ -34,10 +34,10 @@ spec:
         - 10.50.40.10/32
         avoid-buggy-ips: true
         auto-assign: false
-    prometheus:
-      enabled: true
-      serviceMonitor:
-        enabled: true
+    # prometheus:
+    #   enabled: true
+    #   serviceMonitor:
+    #     enabled: true
     controller:
       tolerations:
       - key: "arm"
