@@ -5,7 +5,7 @@ metadata:
   name: unifi
   namespace: default
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
@@ -15,7 +15,7 @@ spec:
         kind: HelmRepository
         name: k8s-at-home-charts
         namespace: flux-system
-      interval: 5m
+      interval: 15m
   values:
     persistence:
       data:
@@ -24,22 +24,21 @@ spec:
         storageClass: fast-disks
         accessMode: ReadWriteOnce
     env:
-      TZ: '${TIMEZONE}'
+      TZ: "${TIMEZONE}"
     ingress:
       main:
         enabled: true
         ingressClassName: nginx
         annotations:
-          # kubernetes.io/ingress.class: "nginx"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         hosts:
-          - host: 'unifi.web.${SECRET_PUBLIC_DOMAIN}'
+          - host: "unifi.web.${SECRET_PUBLIC_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - 'unifi.web.${SECRET_PUBLIC_DOMAIN}'
+              - "unifi.web.${SECRET_PUBLIC_DOMAIN}"
     service:
       main:
         type: LoadBalancer
@@ -80,4 +79,3 @@ spec:
         cpu: 15m
       limits:
         memory: 1000Mi
-        

@@ -5,7 +5,7 @@ metadata:
   name: metallb
   namespace: kube-system
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       # renovate: registryUrl=https://metallb.github.io/metallb
@@ -15,38 +15,33 @@ spec:
         kind: HelmRepository
         name: metallb-charts
         namespace: flux-system
-      interval: 5m
   values:
     configInline:
       peers:
-      - peer-address: 10.50.32.1
-        peer-asn: 64512
-        my-asn: 64513
+        - peer-address: 10.50.32.1
+          peer-asn: 64512
+          my-asn: 64513
       address-pools:
-      - name: pool
-        protocol: bgp
-        addresses:
-        -  10.50.40.11-10.50.43.250
-        avoid-buggy-ips: true
-      - name: dns
-        protocol: bgp
-        addresses:
-        - 10.50.40.10/32
-        avoid-buggy-ips: true
-        auto-assign: false
-    # prometheus:
-    #   enabled: true
-    #   serviceMonitor:
-    #     enabled: true
+        - name: pool
+          protocol: bgp
+          addresses:
+            - 10.50.40.11-10.50.43.250
+          avoid-buggy-ips: true
+        - name: dns
+          protocol: bgp
+          addresses:
+            - 10.50.40.10/32
+          avoid-buggy-ips: true
+          auto-assign: false
     controller:
       tolerations:
-      - key: "arm"
-        operator: "Exists"
+        - key: "arm"
+          operator: "Exists"
     speaker:
       tolerations:
-      - key: "arm"
-        operator: "Exists"
-      - key: "armhf"
-        operator: "Exists"
-      - key: "node-role.kubernetes.io/master"
-        operator: "Exists"
+        - key: "arm"
+          operator: "Exists"
+        - key: "armhf"
+          operator: "Exists"
+        - key: "node-role.kubernetes.io/master"
+          operator: "Exists"

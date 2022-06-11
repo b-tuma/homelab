@@ -21,7 +21,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./clusters/nookium
+  path: ./clusters/nookium/base
   prune: true
   sourceRef:
     kind: GitRepository

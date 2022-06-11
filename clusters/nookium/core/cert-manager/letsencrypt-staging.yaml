@@ -10,11 +10,11 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
-    # An empty 'selector' means that this solver matches all domains
-    - selector: {}
-      dns01:
-        cloudflare:
-          email: "${SECRET_EMAIL}"
-          apiTokenSecretRef:
-            name: cloudflare-api-token-secret
-            key: api-token
+      # An empty 'selector' means that this solver matches all domains
+      - selector: {}
+        dns01:
+          cloudflare:
+            email: "${SECRET_EMAIL}"
+            apiTokenSecretRef:
+              name: cloudflare-api-token-secret
+              key: api-token

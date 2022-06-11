@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
   - kube-system
   - default
- # - media
+  - media
+  - networking

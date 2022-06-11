@@ -1,7 +1,6 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- ../../default/base
-- config
-- namespaces
-- flux-system
+  - cluster-secrets.sops.yaml
+  - cluster-settings.yaml
