@@ -96,9 +96,12 @@ spec:
       postgresqlPassword: "${HASS_DB_PASSWORD}"
       postgresqlDataDir: "/data/pgdata"
       persistence:
-        enabled: true
-        existingClaim: "hass-postgresql"
-        mountPath: "/data/"
+        primary:
+          enabled: true
+          storageClass: fast-disks
+          accessMode: ReadWriteOnce
+          size: "8Gi"
+          mountPath: "/data/"
       shmVolume:
         enabled: false
       volumePermissions:
