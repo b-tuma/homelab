@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "home-${SECRET_PUBLIC_DOMAIN/./-}"
+  namespace: networking
+spec:
+  secretName: "home-${SECRET_PUBLIC_DOMAIN/./-}-tls"
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - "*.home.${SECRET_PUBLIC_DOMAIN}"
