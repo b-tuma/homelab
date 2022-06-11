@@ -36,10 +36,10 @@ spec:
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           nginx.org/websocket-services: home-assistant
         hosts:
-        - host: "hass.web.${SECRET_PUBLIC_DOMAIN}"
-          paths:
-            - path: /
-              pathType: Prefix
+          - host: "hass.web.${SECRET_PUBLIC_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
         tls:
           - hosts:
               - "hass.web.${SECRET_PUBLIC_DOMAIN}"
@@ -65,25 +65,30 @@ spec:
           - "/config/.vscode"
           - --auth
           - "none"
+        service:
+          type: LoadBalancer
+          annotations:
+            metallb.universe.tf/allow-shared-ip: hass-vscode
+          loadBalancerIP: 10.50.40.61
         ingress:
           enabled: true
           ingressClassName: nginx
           annotations:
             nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           hosts:
-          - host: "hass-vscode.web.${SECRET_PUBLIC_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
+            - host: "hass-vscode.web.${SECRET_PUBLIC_DOMAIN}"
+              paths:
+                - path: /
+                  pathType: Prefix
           tls:
             - hosts:
                 - "hass-vscode.web.${SECRET_PUBLIC_DOMAIN}"
         volumeMounts:
-        - name: config
-          mountPath: /config
+          - name: config
+            mountPath: /config
     tolerations:
-    - key: "arm"
-      operator: "Exists"
+      - key: "arm"
+        operator: "Exists"
     resources:
       limits:
         memory: 3000Mi
