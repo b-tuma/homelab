@@ -98,7 +98,8 @@ spec:
       persistence:
         enabled: true
         storageClass: fast-disks
-        size: 8Gi
+        accessMode: ReadWriteOnce
+        size: "8Gi"
         mountPath: "/data/"
       shmVolume:
         enabled: false
