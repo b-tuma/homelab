@@ -97,8 +97,8 @@ spec:
       postgresqlDataDir: "/data/pgdata"
       persistence:
         enabled: true
-        storageClass: fast-disks
-        accessMode: ReadWriteOnce
+        storageClass: "fast-disks"
+        accessMode: "ReadWriteOnce"
         size: "8Gi"
         mountPath: "/data/"
       shmVolume:
