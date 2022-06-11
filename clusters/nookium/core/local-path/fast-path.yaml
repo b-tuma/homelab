@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: fast-path
   namespace: storage
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
 spec:
   interval: 15m
   chart:
