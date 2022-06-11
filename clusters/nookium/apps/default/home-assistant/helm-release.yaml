@@ -1,0 +1,110 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: home-assistant
+      version: 13.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 15m
+  values:
+    env:
+      TZ: "${TIMEZONE}"
+    hostNetwork: true
+    dnsPolicy: ClusterFirstWithHostNet
+    service:
+      main:
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/allow-shared-ip: hass
+        loadBalancerIP: 10.50.40.60
+        externalTrafficPolicy: Local
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        hosts:
+        - host: "hass.web.${SECRET_PUBLIC_DOMAIN}"
+          paths:
+            - path: /
+              pathType: Prefix
+        tls:
+          - hosts:
+              - "hass.web.${SECRET_PUBLIC_DOMAIN}"
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: true
+    persistence:
+      config:
+        enabled: true
+        storageClass: fast-disks
+        accessMode: ReadWriteOnce
+        size: "10Gi"
+    addons:
+      codeserver:
+        enabled: true
+        workingDir: "/config"
+        args:
+          - --user-data-dir
+          - "/config/.vscode"
+          - --auth
+          - "none"
+        ingress:
+          enabled: true
+          ingressClassName: nginx
+          annotations:
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          hosts:
+          - host: "hass-vscode.web.${SECRET_PUBLIC_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+          tls:
+            - hosts:
+                - "hass-vscode.web.${SECRET_PUBLIC_DOMAIN}"
+        volumeMounts:
+        - name: config
+          mountPath: /config
+    tolerations:
+    - key: "arm"
+      operator: "Exists"
+    resources:
+      limits:
+        memory: 3000Mi
+      requests:
+        cpu: 100m
+        memory: 1000Mi
+    postgresql:
+      enabled: true
+      postgresqlUsername: home-assistant
+      postgresqlDatabase: home-assistant
+      postgresqlPassword: "${HASS_DB_PASSWORD}"
+      postgresqlDataDir: "/data/pgdata"
+      persistence:
+        enabled: true
+        storageClass: fast-disks
+        size: 8Gi
+        mountPath: "/data/"
+      shmVolume:
+        enabled: false
+      volumePermissions:
+        enabled: false
+      primary:
+        tolerations:
+        - key: "arm"
+          operator: "Exists"
