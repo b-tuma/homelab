@@ -64,10 +64,10 @@ spec:
         env:
           PRIVATE_KEY: "${NORDVPN_KEY}"
           TZ: "${TIMEZONE}"
-          RECONNECT: 10
           DNS: "172.20.8.10"
           NET_LOCAL: "172.20.0.0/20 10.50.0.0/16"
           POST_UP: |
+            ip a &&
             /usr/sbin/iptables -A FORWARD -i vxlan0 -o nordlynx -j ACCEPT &&
             /usr/sbin/iptables -A FORWARD -i nordlynx -o vxlan0 -j ACCEPT &&
             /usr/sbin/iptables -A INPUT -i vxlan0 -j ACCEPT &&
