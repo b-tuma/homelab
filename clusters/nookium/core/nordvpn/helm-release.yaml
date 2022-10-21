@@ -64,9 +64,10 @@ spec:
           image:
             repository: ghcr.io/b-tuma/nordlynx
             tag: edge
-            pullPolicy: IfNotPresent
+            pullPolicy: Always
         env:
           PRIVATE_KEY: "${NORDVPN_KEY}"
+          SKIP_INTERFACE: vxlan0
           TZ: "${TIMEZONE}"
           DNS: "172.20.8.10"
           NET_LOCAL: "172.20.0.0/20 10.50.0.0/16"
