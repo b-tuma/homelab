@@ -62,8 +62,8 @@ spec:
         type: wireguard
         wireguard:
           image:
-            repository: bubuntux/nordlynx
-            tag: latest
+            repository: ghcr.io/b-tuma/nordlynx
+            tag: edge
             pullPolicy: IfNotPresent
         env:
           PRIVATE_KEY: "${NORDVPN_KEY}"
