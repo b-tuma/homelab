@@ -72,8 +72,8 @@ spec:
           DNS: "172.20.8.10"
           NET_LOCAL: "172.20.0.0/20 10.50.0.0/16"
           TABLE: auto
-          POST_UP: "/sbin/iptables -A FORWARD -i vxlan0 -o wg0 -j ACCEPT && /sbin/iptables -A FORWARD -i wg0 -o vxlan0 -j ACCEPT && /sbin/iptables -A INPUT -i vxlan0 -j ACCEPT && /sbin/iptables -A OUTPUT -o vxlan0 -j ACCEPT"
-          PRE_DOWN: "/sbin/iptables -D FORWARD -i vxlan0 -o wg0 -j ACCEPT && /sbin/iptables -D FORWARD -i wg0 -o vxlan0 -j ACCEPT && /sbin/iptables -D INPUT -i vxlan0 -j ACCEPT && /sbin/iptables -D OUTPUT -o vxlan0 -j ACCEPT"
+          POST_UP: "/sbin/iptables -A FORWARD -d 172.16.0.0/24 -o vxlan0 -j ACCEPT && /sbin/iptables -A FORWARD -s 172.16.0.0/24 -i vxlan0 -j ACCEPT && /sbin/iptables -A FORWARD -i vxlan0 -o wg0 -j ACCEPT && /sbin/iptables -A FORWARD -i wg0 -o vxlan0 -j ACCEPT && /sbin/iptables -A INPUT -i vxlan0 -j ACCEPT && /sbin/iptables -A OUTPUT -o vxlan0 -j ACCEPT"
+          PRE_DOWN: "/sbin/iptables -D FORWARD -d 172.16.0.0/24 -o vxlan0 -j ACCEPT && /sbin/iptables -D FORWARD -s 172.16.0.0/24 -i vxlan0 -j ACCEPT && /sbin/iptables -D FORWARD -i vxlan0 -o wg0 -j ACCEPT && /sbin/iptables -D FORWARD -i wg0 -o vxlan0 -j ACCEPT && /sbin/iptables -D INPUT -i vxlan0 -j ACCEPT && /sbin/iptables -D OUTPUT -o vxlan0 -j ACCEPT"
         securityContext:
           capabilities:
             add:
