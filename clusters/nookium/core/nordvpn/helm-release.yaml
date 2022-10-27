@@ -74,6 +74,15 @@ spec:
           TABLE: auto
           POST_UP: "/sbin/iptables -A FORWARD -d 172.16.0.0/24 -o vxlan0 -j ACCEPT && /sbin/iptables -A FORWARD -s 172.16.0.0/24 -i vxlan0 -j ACCEPT && /sbin/iptables -A FORWARD -i vxlan0 -o wg0 -j ACCEPT && /sbin/iptables -A FORWARD -i wg0 -o vxlan0 -j ACCEPT && /sbin/iptables -A INPUT -i vxlan0 -j ACCEPT && /sbin/iptables -A OUTPUT -o vxlan0 -j ACCEPT"
           PRE_DOWN: "/sbin/iptables -D FORWARD -d 172.16.0.0/24 -o vxlan0 -j ACCEPT && /sbin/iptables -D FORWARD -s 172.16.0.0/24 -i vxlan0 -j ACCEPT && /sbin/iptables -D FORWARD -i vxlan0 -o wg0 -j ACCEPT && /sbin/iptables -D FORWARD -i wg0 -o vxlan0 -j ACCEPT && /sbin/iptables -D INPUT -i vxlan0 -j ACCEPT && /sbin/iptables -D OUTPUT -o vxlan0 -j ACCEPT"
+        livenessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - if [ $(ip -br a | awk '{ print $1 }' | grep wg0) == 'wg0' ]; then exit $?; else exit 0; fi
+          initialDelaySeconds: 60
+          periodSeconds: 60
+          failureThreshold: 1
         securityContext:
           capabilities:
             add:
