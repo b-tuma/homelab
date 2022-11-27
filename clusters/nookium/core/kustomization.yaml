@@ -7,3 +7,4 @@ resources:
   - local-path
   - cert-manager
   - nordvpn
+  - monitoring
