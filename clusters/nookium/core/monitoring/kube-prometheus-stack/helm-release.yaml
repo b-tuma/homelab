@@ -36,5 +36,13 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         serviceMonitorSelector: {}
         serviceMonitorNamespaceSelector: {}
+        additionalScrapeConfigs:
+          - job_name: streambox
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - "streambox.home.${SECRET_PRIVATE_DOMAIN}:9182"
     alertmanager:
       enabled: false
