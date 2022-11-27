@@ -43,6 +43,6 @@ spec:
             honor_timestamps: true
             static_configs:
               - targets:
-                  - "streambox.home.${SECRET_PRIVATE_DOMAIN}:9182"
+                  - "streambox.home.${SECRET_PUBLIC_DOMAIN}:9182"
     alertmanager:
       enabled: false
