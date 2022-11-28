@@ -44,5 +44,15 @@ spec:
             static_configs:
               - targets:
                   - "streambox.home.${SECRET_PUBLIC_DOMAIN}:9182"
+          - job_name: octoprint
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            metrics_path: '/plugin/prometheus_exporter/metrics'
+            params:
+              apikey: ['${OCTOPRINT_API_KEY}']
+            static_configs:
+              - targets:
+                  - "octoprint.home.${SECRET_PUBLIC_DOMAIN}"
     alertmanager:
       enabled: false
