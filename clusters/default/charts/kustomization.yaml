@@ -10,3 +10,4 @@ resources:
   - stakater-charts.yaml
   - prometheus-community-charts.yaml
   - grafana-charts.yaml
+  - node-feature-discovery-charts.yaml
