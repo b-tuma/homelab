@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: rack-controller
+  namespace: monitoring
+spec:
+  endpoints:
+  - path: /
+    interval: 30s
+    port: metrics
+    scheme: http
+    targetPort: 9999
+  namespaceSelector:
+    matchNames:
+      - 'monitoring'
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: rack-controller
+      app.kubernetes.io/name: rack-controller
+      app.kubernetes.io/service: rack-controller-metrics
