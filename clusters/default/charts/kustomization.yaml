@@ -11,3 +11,4 @@ resources:
   - prometheus-community-charts.yaml
   - grafana-charts.yaml
   - node-feature-discovery-charts.yaml
+  - bjw-s-charts.yaml
