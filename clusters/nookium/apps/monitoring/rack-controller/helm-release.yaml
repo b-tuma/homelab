@@ -26,6 +26,13 @@ spec:
         ports:
           http:
             port: 5000
+      metrics:
+        enabled: true
+        ports:
+          metrics:
+            enabled: true
+            port: 9999
+            protocol: TCP
     ingress:
       main:
         enabled: true
@@ -35,6 +42,8 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+    securityContext:
+      privileged: true
     persistence:
       usb:
         enabled: true
