@@ -12,3 +12,4 @@ resources:
   - grafana-charts.yaml
   - node-feature-discovery-charts.yaml
   - bjw-s-charts.yaml
+  - t3n-charts.yaml
