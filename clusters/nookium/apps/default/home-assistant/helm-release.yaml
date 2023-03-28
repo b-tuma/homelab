@@ -17,6 +17,8 @@ spec:
         namespace: flux-system
       interval: 15m
   values:
+    image:
+      tag: "2023.3"
     env:
       TZ: "${TIMEZONE}"
     hostNetwork: true
