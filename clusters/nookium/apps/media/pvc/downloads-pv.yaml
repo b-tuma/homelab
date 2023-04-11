@@ -15,7 +15,6 @@ spec:
     server: 10.50.32.40
     path: "/volume1/Shared/Uncategorized/Downloads"
   mountOptions:
-    - nfsvers=3
     - tcp
     - intr
     - hard
