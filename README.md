@@ -1,3 +1,8 @@
+DEPRECATED
+Started a new homelab from scratch with a heavy focus on security, so this repo is not in use anymore. (Going with a private repo this time around)
+
+
+
 My homelab defined through code. (WIP)
 
 
